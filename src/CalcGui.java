@@ -154,54 +154,24 @@ class CalcGui implements ActionListener {
             textfield.setText(textfield.getText().concat("."));
 
         if (e.getSource() == badd) {
-            a = Double.parseDouble(textfield.getText());
-            operator = 1;
-            textfield.setText("");
+            textfield.setText(" + ");
         }
 
         if (e.getSource() == bsubstract) {
-            a = Double.parseDouble(textfield.getText());
-            operator = 2;
-            textfield.setText("");
+            textfield.setText(" - ");
         }
 
         if (e.getSource() == bmultiply) {
-            a = Double.parseDouble(textfield.getText());
-            operator = 3;
-            textfield.setText("");
+            textfield.setText(" * ");
         }
 
         if (e.getSource() == bdivide) {
-            a = Double.parseDouble(textfield.getText());
-            operator = 4;
-            textfield.setText("");
+            textfield.setText(" / ");
         }
 
         if (e.getSource() == bequal) {
-            b = Double.parseDouble(textfield.getText());
-
-            switch (operator) {
-                case 1:
-                    result = a + b;
-                    break;
-
-                case 2:
-                    result = a - b;
-                    break;
-
-                case 3:
-                    result = a * b;
-                    break;
-
-                case 4:
-                    result = a / b;
-                    break;
-
-                default:
-                    result = 0;
-            }
-
-            textfield.setText("" + result);
+            CalcEngine equation = new CalcEngine(textfield.getText());
+            textfield.setText("" + equation.evaluateExpression());
         }
 
         if (e.getSource() == bclear)
