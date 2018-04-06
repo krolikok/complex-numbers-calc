@@ -3,8 +3,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 class CalcGui implements ActionListener {
-    static private double a = 0, b = 0, result = 0;
-    static private int operator = 0;
+    private CalcEngine equation;
+    private int equalFlag = 0;
+    private int blockFlag = 0;
+    private int counter = 0;
     JFrame frame;
     JTextField textfield;
     JButton b1, b2, b3, b4, b5, b6, b7, b8, b9, b0, bdivide, bmultiply, bsubstract, badd, bdot, bequal, bdelete, bclear, btryg, bcmpx, bsqrt, bparl, bparr;
@@ -195,13 +197,20 @@ class CalcGui implements ActionListener {
         }
 
         if (e.getSource() == bequal) {
-            CalcEngine equation = new CalcEngine(textfield.getText());
+            equation = new CalcEngine(textfield.getText());
             System.out.println(textfield.getText().trim());
-            textfield.setText("" + equation.evaluateExpression());
+            textfield.setText("" + equation.getNormalStringResult());
             System.out.println(textfield.getText());
+            equalFlag = 1;
         }
         if (e.getSource() == btryg) {
-            textfield.setText("");
+            if (equalFlag == 1) {
+                if (counter % 2 == 0)
+                    textfield.setText("" + equation.getTrygStringResult());
+                else
+                    textfield.setText("" + equation.getNormalStringResult());
+                counter += 1;
+            }
         }
 
         if (e.getSource() == bclear)

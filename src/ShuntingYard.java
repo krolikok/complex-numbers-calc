@@ -50,13 +50,4 @@ public class ShuntingYard {
 
         return varQue.toString().replace(",", "").replace("[", "").replace("]", "");
     }
-
-    public static void main(String[] args) {
-//        StringParser s = new StringParser("2+3*5");
-//        postfix("( 5.0 + 7i ) * 2 ^ 2");
-//        postfix("3i + 4.0 * 2i / ( 1 - 5 ) ^ 2");
-        System.out.println(postfix("( 4 + 2i ) ^ 0.5"));
-
-    }
-
 }

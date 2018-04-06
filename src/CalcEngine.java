@@ -1,4 +1,3 @@
-import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Stack;
 
@@ -6,16 +5,16 @@ public class CalcEngine {
 
 
     private String infix_str, postfix_str;
-    private LinkedList<String> infix_str_list;
+    private ComplexNumber result;
 
 
     public CalcEngine(String infix_str) {
         this.infix_str = infix_str;
         this.postfix_str = ShuntingYard.postfix(infix_str);
-
+        this.result = this.evaluateExpression();
     }
 
-    public static boolean isNumeric(String str) {
+    private boolean isNumeric(String str) {
         try {
             double d = Double.parseDouble(str.replace("i", ""));
             return true;
@@ -25,14 +24,7 @@ public class CalcEngine {
 
     }
 
-    public static void main(String[] args) {
-//        CalcEngine a = new CalcEngine("( 4 + 2i ) ^ 0.5");
-        CalcEngine a = new CalcEngine("( 2i + 2 ) / ( 1 + 1i )");
-        a.evaluateExpression();
-
-    }
-
-    public String evaluateExpression() {
+    private ComplexNumber evaluateExpression() {
         Stack<ComplexNumber> tmpEvaluationStack = new Stack<ComplexNumber>();
 
         for (String token : this.postfix_str.split("\\s")) {
@@ -62,10 +54,18 @@ public class CalcEngine {
             }
 
         }
-
-
         ComplexNumber result = tmpEvaluationStack.pop();
-        return String.format(Locale.US, "%f + %fi", result.getReal(), result.getImag());
-
+        return result;
     }
+
+    public String getNormalStringResult() {
+        return String.format(Locale.US, "%f + %fi", this.result.getReal(), this.result.getImag());
+    }
+
+    public String getTrygStringResult() {
+        return String.format(Locale.US, "%f < %f", this.result.getMagnitude(), this.result.getArg() * 180 / Math.PI);
+    }
+
+
+//    public String to_string()
 }
