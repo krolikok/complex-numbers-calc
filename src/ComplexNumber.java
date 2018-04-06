@@ -15,7 +15,7 @@ public class ComplexNumber {
 
     // Statyczne metody
     public static ComplexNumber multiply(ComplexNumber a, ComplexNumber b) {
-        return new ComplexNumber(a.real * b.real - a.real * b.real, a.real * b.imag + a.imag * b.real);
+        return new ComplexNumber(a.real * b.real - a.imag * b.imag, a.real * b.imag + a.imag * b.real);
     }
 
     public static ComplexNumber add(ComplexNumber a, ComplexNumber b) {
@@ -32,10 +32,11 @@ public class ComplexNumber {
         return new ComplexNumber((a.real * b.real + a.imag * b.imag) / common_fraction, (a.imag * b.real - a.real * b.imag) / common_fraction);
     }
 
-    public static ComplexNumber sqrt(ComplexNumber a) {
+    public static ComplexNumber pow(ComplexNumber a, ComplexNumber b) {
         //
-        double arg_prim = a.arg / 2;
-        double mag_prim = Math.sqrt(a.magn);
+        double p = b.real;
+        double arg_prim = a.arg * p;
+        double mag_prim = Math.pow(a.magn, p);
         return new ComplexNumber(mag_prim * Math.cos(arg_prim), mag_prim * Math.sin(arg_prim));
     }
 

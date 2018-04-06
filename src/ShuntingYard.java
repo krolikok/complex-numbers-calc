@@ -1,38 +1,43 @@
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Stack;
 
 public class ShuntingYard {
 
     private static Map<String, Integer> operators = new HashMap<String, Integer>() {{
         put("+", 1);
-        put("-", 2);
-        put("*", 3);
-        put("/", 4);
+        put("-", 1);
+        put("*", 2);
+        put("/", 2);
+        put("^", 3);
     }};
 
-    private static boolean isRightStrHigerPrec(String leftStr, String rightStr) {
+    private static boolean isRightStrHasHigerPrecedence(String leftStr, String rightStr) {
         return (operators.containsKey(rightStr) && operators.get(rightStr) >= operators.get(leftStr));
     }
 
-    public static void postfix(String infix) {
-        Queue<String> varQue = new LinkedList<String>();
-        Stack<String> operStack = new Stack<String>();
+    public static String postfix(String infix_string) {
+//        Queue<String> varQue = new LinkedList<String>();
+        LinkedList<String> varQue = new LinkedList<String>();
+        Stack<String> operandStack = new Stack<String>();
 
-        for (String token : infix.split("\\s")) {
+        for (String token : infix_string.split("\\s")) {
             // operator
             if (operators.containsKey(token)) {
-                while (!operStack.empty() && isRightStrHigerPrec(token, operStack.peek()))
-                    varQue.add(operStack.pop());
-                operStack.push(token);
+                while (!operandStack.empty() && isRightStrHasHigerPrecedence(token, operandStack.peek()))
+                    varQue.add(operandStack.pop());
+                operandStack.push(token);
 
                 // left parenthesis
             } else if (token.equals("(")) {
-                operStack.push(token);
+                operandStack.push(token);
 
                 // right parenthesis
             } else if (token.equals(")")) {
-                while (!operStack.peek().equals("("))
-                    varQue.add(operStack.pop());
-                operStack.pop();
+                while (!operandStack.peek().equals("("))
+                    varQue.add(operandStack.pop());
+                operandStack.pop();
 
                 // digit
             } else {
@@ -40,15 +45,17 @@ public class ShuntingYard {
             }
         }
 
-        while (!operStack.isEmpty())
-            varQue.add(operStack.pop());
+        while (!operandStack.isEmpty())
+            varQue.add(operandStack.pop());
 
-//        return varQue;
+        return varQue.toString().replace(",", "").replace("[", "").replace("]", "");
     }
 
     public static void main(String[] args) {
 //        StringParser s = new StringParser("2+3*5");
-        postfix("( 5.0 + 7i ) * 2");
+//        postfix("( 5.0 + 7i ) * 2 ^ 2");
+//        postfix("3i + 4.0 * 2i / ( 1 - 5 ) ^ 2");
+        System.out.println(postfix("( 4 + 2i ) ^ 0.5"));
 
     }
 

@@ -7,7 +7,7 @@ class CalcGui implements ActionListener {
     static private int operator = 0;
     JFrame frame;
     JTextField textfield;
-    JButton b1, b2, b3, b4, b5, b6, b7, b8, b9, b0, bdivide, bmultiply, bsubstract, badd, bdot, bequal, bdelete, bclear, btryg, bcmpx, bsqrt;
+    JButton b1, b2, b3, b4, b5, b6, b7, b8, b9, b0, bdivide, bmultiply, bsubstract, badd, bdot, bequal, bdelete, bclear, btryg, bcmpx, bsqrt, bparl, bparr;
     private int font_size = 10;
     private String font_type = "Arial";
 
@@ -35,6 +35,8 @@ class CalcGui implements ActionListener {
         bdelete = new JButton("DEL");
         bclear = new JButton("AC");
         bsqrt = new JButton("sqrt");
+        bparl = new JButton("(");
+        bparr = new JButton(")");
 
         // Frame Layout:
         frame.setVisible(true);
@@ -69,7 +71,9 @@ class CalcGui implements ActionListener {
         bsqrt.setBounds(310, 310, 70, 40);
 
         bequal.setBounds(400, 310, 70, 110);
-        btryg.setBounds(40, 380, 340, 40);
+        btryg.setBounds(40, 380, 70, 40);
+        bparl.setBounds(130, 380, 70, 40);
+        bparr.setBounds(220, 380, 70, 40);
 
 
         frame.add(textfield);
@@ -94,6 +98,8 @@ class CalcGui implements ActionListener {
         frame.add(btryg);
         frame.add(bcmpx);
         frame.add(bsqrt);
+        frame.add(bparl);
+        frame.add(bparr);
 
         b1.addActionListener(this);
         b2.addActionListener(this);
@@ -109,10 +115,15 @@ class CalcGui implements ActionListener {
         bdivide.addActionListener(this);
         bmultiply.addActionListener(this);
         bsubstract.addActionListener(this);
+        bcmpx.addActionListener(this);
         bdot.addActionListener(this);
+        bparl.addActionListener(this);
+        bparr.addActionListener(this);
+        bsqrt.addActionListener(this);
         bequal.addActionListener(this);
         bdelete.addActionListener(this);
         bclear.addActionListener(this);
+        btryg.addActionListener(this);
     }
 
     public static void main(String... s) {
@@ -120,6 +131,7 @@ class CalcGui implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
+
         if (e.getSource() == b1)
             textfield.setText(textfield.getText().concat("1"));
 
@@ -149,29 +161,47 @@ class CalcGui implements ActionListener {
 
         if (e.getSource() == b0)
             textfield.setText(textfield.getText().concat("0"));
+        if (e.getSource() == bcmpx)
+            textfield.setText(textfield.getText().concat("i"));
 
         if (e.getSource() == bdot)
             textfield.setText(textfield.getText().concat("."));
 
         if (e.getSource() == badd) {
-            textfield.setText(" + ");
+            textfield.setText(textfield.getText().concat(" + "));
         }
 
         if (e.getSource() == bsubstract) {
-            textfield.setText(" - ");
+            textfield.setText(textfield.getText().concat(" - "));
         }
 
         if (e.getSource() == bmultiply) {
-            textfield.setText(" * ");
+            textfield.setText(textfield.getText().concat(" * "));
         }
 
         if (e.getSource() == bdivide) {
-            textfield.setText(" / ");
+            textfield.setText(textfield.getText().concat(" / "));
+        }
+
+        if (e.getSource() == bsqrt) {
+            textfield.setText(textfield.getText().concat(" ^ 0.5"));
+        }
+
+        if (e.getSource() == bparl) {
+            textfield.setText(textfield.getText().concat("( "));
+        }
+        if (e.getSource() == bparr) {
+            textfield.setText(textfield.getText().concat(" )"));
         }
 
         if (e.getSource() == bequal) {
             CalcEngine equation = new CalcEngine(textfield.getText());
+            System.out.println(textfield.getText().trim());
             textfield.setText("" + equation.evaluateExpression());
+            System.out.println(textfield.getText());
+        }
+        if (e.getSource() == btryg) {
+            textfield.setText("");
         }
 
         if (e.getSource() == bclear)
