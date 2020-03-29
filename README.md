@@ -1,5 +1,5 @@
 # complex-numbers-calc
-#2017 #Java #Spring #awt
+#2017 #Java #swing #awt
 
-Project for Object Oriented course within Computer Science
+A coursework for Object Oriented course within Computer Science
 @2017
