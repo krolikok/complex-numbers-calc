@@ -4,8 +4,9 @@
 I have developed calulator that:
 * handles complex numbers algebra, 
 * an user can enter many compound operations at once (using brackets) 
+* implements [normal Polish notation](https://en.wikipedia.org/wiki/Polish_notation)
 
-A coursework for Object Oriented course within Computer Science
+It is my final project from Object Oriented Programming (Applied Computer Science).
 @2017
 
 License: 
