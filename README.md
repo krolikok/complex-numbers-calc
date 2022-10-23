@@ -6,7 +6,8 @@ I have developed calulator that:
 * an user can enter many compound operations at once (using brackets) 
 * implements [normal Polish notation](https://en.wikipedia.org/wiki/Polish_notation)
 
-It is my final project from Object Oriented Programming (Applied Computer Science).
+It is my final project from Object Oriented Programming (Applied Computer Science).  
+
 @2017
 
 License: 
